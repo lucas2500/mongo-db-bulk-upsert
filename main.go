@@ -95,7 +95,7 @@ func DisconnectFromMongoDB() {
 
 	err := client.Disconnect(MongoCtx)
 
-	FailOnError(err, "There was an error disconnecting to Mongo", true)
+	FailOnError(err, "There was an error disconnecting from Mongo", true)
 
 	log.Println("Disconnected successfully!!")
 
