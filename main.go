@@ -70,7 +70,7 @@ func UpsertData() {
 
 	_, err := coll.BulkWrite(MongoCtx, models)
 
-	FailOnError(err, "There was an error upserting data", true)
+	FailOnError(err, "There was an error upserting data")
 
 	log.Println("- collection upserted successfully")
 }
@@ -84,7 +84,7 @@ func ConnectToMongoDB() {
 	MongoCtx = context.Background()
 	client, err = mongo.Connect(MongoCtx, options.Client().ApplyURI("mongodb://root:root@localhost:27017/"))
 
-	FailOnError(err, "There was an error connecting to Mongo", true)
+	FailOnError(err, "There was an error connecting to Mongo")
 
 	log.Println("Connected successfully!!")
 }
@@ -95,19 +95,15 @@ func DisconnectFromMongoDB() {
 
 	err := client.Disconnect(MongoCtx)
 
-	FailOnError(err, "There was an error disconnecting from Mongo", true)
+	FailOnError(err, "There was an error disconnecting from Mongo")
 
 	log.Println("Disconnected successfully!!")
 
 }
 
-func FailOnError(err error, msg string, kill bool) {
+func FailOnError(err error, msg string) {
 
 	if err != nil {
-		if !kill {
-			log.Printf("%s: %s", msg, err)
-		} else {
-			log.Fatalf("%s: %s", msg, err)
-		}
+		log.Fatalf("%s: %s", msg, err)
 	}
 }
